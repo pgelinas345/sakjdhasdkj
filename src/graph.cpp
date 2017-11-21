@@ -114,7 +114,7 @@ void CGraph::CreateFromMatrice(int ** L){
 	{
 		this->graph[i].id = i;
 		this->graph[i].nb_nodes = 0;
-
+		this->graph[i].PassedOn = false;
 		for(int j=0; j<this->N; j++)
 		{
 			if(L[i][j] > 0)

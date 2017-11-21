@@ -46,6 +46,7 @@ public:
 	struct Graph{
 		int id;
 		int nb_nodes;
+		bool PassedOn;
 		std::list<Node> nodes;
 	};
 	int N;
