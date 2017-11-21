@@ -154,7 +154,7 @@ int ** CGraph::Generate(int minL, int maxL, int minP, int maxP){
 			{
 				L[i][j]=-1;
 			}
-			numL = minL + (rand()%(maxL-minL));
+			numL[i] = minL + (rand()%(maxL-minL));
 		}
 	}
 
