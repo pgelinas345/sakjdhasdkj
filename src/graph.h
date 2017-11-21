@@ -14,7 +14,12 @@
 #include <list>
 #include <vector>
 
-#define MAX_DECIMAL_INT_LENGHT 5
+#define MAX_NUMBER_OF_NODES 0x7FFF
+#define MIN_NUMBER_OF_NODES 3
+#define MAX_NUMBER_OF_EDGES(x) (x-1)
+#define MIN_NUMBER_OF_EDGES 2
+#define	MIN_EDGES_VALUE		1
+#define MAX_EDGES_VALUE		0x7FFF
 
 
 using namespace std;
@@ -36,7 +41,7 @@ public:
 		int id;
 		int value;
 
-		Node(int _id, int _value) :
+		Node(int _id, int _value):
 		id(_id),
 		value(_value)
 		{
@@ -55,6 +60,8 @@ public:
 
 	CGraph();
 	~CGraph();
+
+	int saveToFile(const char * file_name);
 
 };
 

@@ -14,6 +14,7 @@ CGraph::CGraph(){
 	this->N=0;
 	char user;
 	int ** L = NULL;
+	int minL=0,maxL=0,minP=0,maxP=0;
 	std::string file_name;
 
 
@@ -40,15 +41,80 @@ CGraph::CGraph(){
     }
     else
     {
-        cout << "\nEnter valid number of nodes:";
-        cout << "\n=>";
 
-        cin >> this->N;
+    	while((this->N<MIN_NUMBER_OF_NODES) || (this->N>MAX_NUMBER_OF_NODES))
+    	{
+			cout << "\nEnter valid number of nodes:";
+			cout << "\n=>";
+			cin >> this->N;
+			if((this->N<MIN_NUMBER_OF_NODES) || (this->N>MAX_NUMBER_OF_NODES))
+			{
+				cout << "\nEntered value is not valid!";
+			}
+    	}
+    	while(minL < MIN_NUMBER_OF_EDGES || minL>MAX_NUMBER_OF_EDGES(this->N))
+    	{
+    		cout << "\nEnter valid ";
+    		printf("minimum number of edges (min=%d):",MIN_NUMBER_OF_EDGES);
+			cout << "\n=>";
+			cin >> minL;
+			if(minL < MIN_NUMBER_OF_EDGES)
+			{
+				cout << "\nEntered value is not valid!";
+			}
+    	}
+    	while(maxL > MAX_NUMBER_OF_EDGES(this->N) || maxL < minL)
+    	{
+    		cout << "\nEnter valid ";
+    		cout << "maximum number of edges (max=%d):" << MAX_NUMBER_OF_EDGES(this->N);
+			cout << "\n=>";
+			cin >> maxL;
+			if(maxL > MAX_NUMBER_OF_EDGES(this->N) || maxL < minL)
+			{
+				cout << "\nEntered value is not valid!";
+			}
+    	}
+    	while(minP < MIN_EDGES_VALUE || minP > MAX_EDGES_VALUE)
+    	{
+    		cout << "\nEnter valid ";
+    		cout << "minimum edges value(min=%d):" << MIN_EDGES_VALUE;
+			cout << "\n=>";
+			cin >> minP;
+			if(minP < MIN_EDGES_VALUE)
+			{
+				cout << "\nEntered value is not valid!";
+			}
+    	}
+    	while(maxP > MAX_EDGES_VALUE || maxP < minP)
+    	{
+    		cout << "\nEnter valid ";
+    		cout << "maximum edges value (max=%d):" << MAX_EDGES_VALUE;
+			cout << "\n=>";
+			cin >> maxP;
+			if(maxP > MAX_EDGES_VALUE)
+			{
+				cout << "\nEntered value is not valid!";
+			}
+    	}
 
-
+    	L = Generate(minL,maxL,minP,maxP);
     }
 
     CreateFromMatrice(L);
+
+}
+
+CGraph::~CGraph(void){
+
+	for(auto it = this->graph.begin();it!=this->graph.end();it++)
+	{
+		it->nodes.clear();
+	}
+
+	this->graph.clear();
+
+	delete this->graph;
+
 
 }
 
@@ -140,6 +206,8 @@ int ** CGraph::Generate(int minL, int maxL, int minP, int maxP){
 	int * numL = new int[this->N];
 	int * tpL = new int[this->N];
 
+
+
 	srand(time(NULL));
 
 	for(int i = 0; i<this->N;i++)
@@ -154,11 +222,11 @@ int ** CGraph::Generate(int minL, int maxL, int minP, int maxP){
 			{
 				L[i][j]=-1;
 			}
-			numL[i] = minL + (rand()%(maxL-minL));
 		}
+		numL[i] = minL + (rand()%(maxL-minL));
 	}
 
-	for(int k = 0; k<minL;k++)
+	for(int k = 1; k<=minL;k++)
 	{
 		for(int n = 0; n<this->N; n++)
 		{
@@ -169,9 +237,9 @@ int ** CGraph::Generate(int minL, int maxL, int minP, int maxP){
 				{
 					if((L[n][p] < 0) && (numL[p] > 0))
 					{
-						tpL[k] = p;
-						K++;
+						tpL[K] = p;
 					}
+					K++;
 				}
 
 				if(K>0)

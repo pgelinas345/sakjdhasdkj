@@ -21,6 +21,7 @@ int main() {
 	for(int i = 0; i<G->N; i++)
 	{
 		printf("\nNode:%d voisin:%d ",G->graph[i].id,G->graph[i].nb_nodes);
+
 		for(auto it = G->graph[i].nodes.begin(); it!=G->graph[i].nodes.end();it++)
 		{
 			printf("\nid=%d value=%d", it->id, it->value);
