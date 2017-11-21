@@ -158,18 +158,18 @@ int ** CGraph::Generate(int minL, int maxL, int minP, int maxP){
 		}
 	}
 
-	for(int i = 0; i<minL;i++)
+	for(int k = 0; k<minL;k++)
 	{
-		for(int j = 0; j<this->N; j++)
+		for(int n = 0; n<this->N; n++)
 		{
-			if(numL[j] > 0)
+			if(numL[n] > 0)
 			{
 				K=0;
-				for(int k=0; k<this->N;k++)
+				for(p=0; p<this->N;p++)
 				{
-					if((L[j][k] < 0) && (numL[k] > 0))
+					if((L[n][p] < 0) && (numL[p] > 0))
 					{
-						tpL[i] = k;
+						tpL[k] = p;
 						K++;
 					}
 				}
@@ -178,8 +178,11 @@ int ** CGraph::Generate(int minL, int maxL, int minP, int maxP){
 				{
 					v = rand()%K;
 					a = tpL[v];
-					k = minP + rand()%(maxP-minP+1);
-
+					p = minP + rand()%(maxP-minP+1);
+					L[n][a] = p;
+					L[a][n] = p;
+					numL[n]--;
+					numL[a]--;
 				}
 			}
 
