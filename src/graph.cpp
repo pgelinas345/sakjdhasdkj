@@ -10,6 +10,7 @@
 #include <string.h>
 #include <string>
 
+
 CGraph::CGraph(){
 	this->N=0;
 	char user;
@@ -23,6 +24,8 @@ CGraph::CGraph(){
     cout << "\n2.Generate randomly.";
     cout << "\n=>";
     cin >> user;
+
+
 
     if(user == '1')
     {
@@ -112,12 +115,13 @@ CGraph::~CGraph(void){
 	}
 
 	this->graph.clear();
-
-	delete this->graph;
-
-
 }
 
+/**
+ *
+ * @param file_name
+ * @return
+ */
 int ** CGraph::ReadFromFile(char * file_name){
 
     char *p;
