@@ -17,14 +17,28 @@ using namespace std;
 
 int main() {
 
-	int idDepart;
+	int z;
 
+	std::vector<int> x = {0,1,2,3};
 
 	CGraph * G = new(CGraph);
 
 	auto start_time = std::chrono::high_resolution_clock::now();
 
-	G->displayNodes();
+	  for(int i = 0; i<G->N; i++)
+	  {
+	    printf("\nNode:%d voisin:%d ",G->graph[i].id,G->graph[i].nb_nodes);
+
+	    for(auto it = G->graph[i].nodes.begin(); it!=G->graph[i].nodes.end();it++)
+	    {
+	      printf("\nid=%d value=%d", it->id, it->value);
+	    }
+	  }
+	G->displayPath(x);
+
+	z = G->countSolutionCost(x);
+
+	cout << "\nTotal cost = " << z;
 
 	auto end_time = std::chrono::high_resolution_clock::now();
 

@@ -292,14 +292,74 @@ int CGraph::countViewedNodes(void){
 	return retVal;
 }
 
-void CGraph::displayViewedNodes(int StartNode, int EndNode){
+void CGraph::displayViewedNodes(void){
+
+	cout << "\nNodes passed on:";
+
+	for(auto it=this->graph.begin();it!=this->graph.end();it++)
+	{
+		if(it->PassedOn == true)
+		{
+			cout << "\n" << it->id;
+		}
+	}
+}
+
+void CGraph::displayPath(std::vector<int> v){
+
+	int StartNode = *(v.begin());
+	int EndNode = *((v.end())-1);
+
+	cout << "\nPath taken to get from " << StartNode << " to " << EndNode;
+
+	cout << "\n";
+	for(auto it = v.begin(); it!=v.end() ; it++)
+	{
+		if((it+1) == v.end())
+		{
+			cout << *it;
+		}
+		else
+		{
+			cout << *it << " -> ";
+		}
+	}
 
 }
 
-int CGraph::countSolutionCost(void){
+int CGraph::countSolutionCost(std::vector<int> v){
+
+	int retVal = 0;
+	int StartNode = *(v.begin());
+	int EndNode = *((v.end())-1);
+
+	cout << "\nPath taken to get from " << StartNode << " to " << EndNode;
+
+	cout << "\n";
+	for(auto it = v.begin(); (it+1)!=v.end() ; it++)
+	{
+		for(auto itv = this->graph.begin(); itv!=this->graph.end();itv++)
+		{
+			if(itv->id == *it)
+			{
+				for(auto itl=itv->nodes.begin(); itl!=itv->nodes.end(); itl++)
+				{
+					if(itl->id == *(it+1))
+					{
+						retVal += itl->value;
+						break;
+					}
+				}
+				break;
+			}
+		}
+
+
+	}
+
+	return retVal;
 
 }
-
 
 
 

@@ -48,8 +48,6 @@ public:
 		}
 	};
 
-
-
 	struct Graph{
 		int id;
 		int nb_nodes;
@@ -67,8 +65,9 @@ public:
 	int saveToFile(const char * file_name);
 	void displayNodes(void);
 	int countViewedNodes(void);
-	void displayViewedNodes(int StartNode, int EndNode);
-	int countSolutionCost(void);
+	void displayViewedNodes(void);
+	void displayPath(std::vector<int> v);
+	int countSolutionCost(std::vector<int> v);
 
 };
 
