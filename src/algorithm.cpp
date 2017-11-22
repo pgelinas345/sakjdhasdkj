@@ -72,7 +72,41 @@ bool algorithm::wide_search(std::vector<CGraph::Graph> &tree, int source, int de
     pth=working_queue;
 }
 
-void reset_visite(std::vector<CGraph::Graph> &tree){
+void algorithm::reset_visite(std::vector<CGraph::Graph> &tree){
     for(auto i=0;i<tree.size();i++)
         tree[i].PassedOn= false;
 }
+
+int algorithm::isIdInList(std::list<CGraph::Node> list,int id){
+
+	int retVal = -1;
+
+	for(auto it = list.begin(); it != list.end() ; it++)
+	{
+		if(it->id == id)
+		{
+			retVal = it->value;
+			break;
+		}
+	}
+
+	return retVal;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

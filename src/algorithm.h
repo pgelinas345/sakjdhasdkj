@@ -10,6 +10,9 @@
 using namespace std;
 
 class algorithm {
+
+private:
+	int isIdInList(std::list<CGraph::Node> list, int id);
 public:
     bool deep_search(std::vector<CGraph::Graph> &tree, int source, int dest,std::vector<CGraph::Graph> &pth, int start_ind );
     void reset_visite(std::vector<CGraph::Graph> &tree);

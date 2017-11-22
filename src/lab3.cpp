@@ -22,8 +22,6 @@ int main() {
 
 	CGraph * G = new(CGraph);
 
-
-
 	auto start_time = std::chrono::high_resolution_clock::now();
 
 	G->displayNodes();

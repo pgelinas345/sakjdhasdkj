@@ -48,6 +48,8 @@ public:
 		}
 	};
 
+
+
 	struct Graph{
 		int id;
 		int nb_nodes;
@@ -57,6 +59,7 @@ public:
 	int N;
 
 	std::vector<Graph> graph;
+	int **AdjMatrix;
 
 	CGraph();
 	~CGraph();

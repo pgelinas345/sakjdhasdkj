@@ -153,6 +153,8 @@ int ** CGraph::ReadFromFile(char * file_name){
 
     	i = 0;
 
+
+
         while ((fgets(line, 1024, file)) != NULL ){
 
         	j=0;
@@ -278,6 +280,16 @@ void CGraph::displayNodes(void){
 
 int CGraph::countViewedNodes(void){
 
+	int retVal = 0;
+
+	for(auto it=this->graph.begin();it!=this->graph.end();it++)
+	{
+		if(it->PassedOn == true)
+		{
+			retVal++;
+		}
+	}
+	return retVal;
 }
 
 void CGraph::displayViewedNodes(int StartNode, int EndNode){
