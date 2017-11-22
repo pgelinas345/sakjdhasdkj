@@ -12,7 +12,8 @@ using namespace std;
 class algorithm {
 public:
     bool deep_search(std::vector<CGraph::Graph> &tree, int source, int dest,std::vector<CGraph::Graph> &pth, int start_ind );
-    void reset_visite(std::vector<CGraph::Graph> tree);
+    void reset_visite(std::vector<CGraph::Graph> &tree);
+    bool wide_search(std::vector<CGraph::Graph> &tree, int source, int dest,std::vector<CGraph::Graph> &pth);
 };
 
 
