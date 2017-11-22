@@ -62,6 +62,10 @@ public:
 	~CGraph();
 
 	int saveToFile(const char * file_name);
+	void displayNodes(void);
+	int countViewedNodes(void);
+	void displayViewedNodes(int StartNode, int EndNode);
+	int countSolutionCost(void);
 
 };
 

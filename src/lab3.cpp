@@ -17,19 +17,16 @@ using namespace std;
 
 int main() {
 
+	int idDepart;
+
+
 	CGraph * G = new(CGraph);
+
+
 
 	auto start_time = std::chrono::high_resolution_clock::now();
 
-	for(int i = 0; i<G->N; i++)
-	{
-		printf("\nNode:%d voisin:%d ",G->graph[i].id,G->graph[i].nb_nodes);
-
-		for(auto it = G->graph[i].nodes.begin(); it!=G->graph[i].nodes.end();it++)
-		{
-			printf("\nid=%d value=%d", it->id, it->value);
-		}
-	}
+	G->displayNodes();
 
 	auto end_time = std::chrono::high_resolution_clock::now();
 

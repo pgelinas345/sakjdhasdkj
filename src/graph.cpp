@@ -265,7 +265,28 @@ int ** CGraph::Generate(int minL, int maxL, int minP, int maxP){
 }
 
 
+void CGraph::displayNodes(void){
 
+	cout << "\nAvailable nodes:";
+
+	for(auto it=this->graph.begin();it!=this->graph.end();it++)
+	{
+		cout << "\n" << it->id;
+	}
+
+}
+
+int CGraph::countViewedNodes(void){
+
+}
+
+void CGraph::displayViewedNodes(int StartNode, int EndNode){
+
+}
+
+int CGraph::countSolutionCost(void){
+
+}
 
 
 
