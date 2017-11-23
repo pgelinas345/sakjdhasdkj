@@ -77,16 +77,14 @@ void algorithm::reset_visite(std::vector<CGraph::Graph> &tree){
         tree[i].PassedOn= false;
 }
 
-int algorithm::isIdInList(std::list<CGraph::Node> list,int id){
+int algorithm::nodeToNodeValue(std::vector<CGraph::Graph> v, int id_from, int id_to){
 
 	int retVal = -1;
 
-	for(auto it = list.begin(); it != list.end() ; it++)
-	{
-		if(it->id == id)
+	for (auto it = v.begin(); it != v.end(); it++) {
+		if (it->id == id_from)
 		{
-			retVal = it->value;
-			break;
+			isIdInList(it->nodes,id_to);
 		}
 	}
 
@@ -94,6 +92,68 @@ int algorithm::isIdInList(std::list<CGraph::Node> list,int id){
 }
 
 
+int algorithm::isIdInList(std::list<CGraph::Node> list, int id){
+
+	int retVal = -1;
+
+	for(auto it = list.begin(); it != list.end() && (retVal == -1) ; it++)
+	{
+		if(it->id == id)
+		{
+			retVal = it->value;
+		}
+	}
+
+	return retVal;
+}
+
+
+bool algorithm::dijkstra_search(std::vector<CGraph::Graph> &tree, int source, int destination,std::vector<int> &pth){
+
+	int N = tree.size();
+
+	bool * Visited = new bool[N];
+	int * D = new int[N];
+	int * path = new int[N];
+	int Nearest;
+	int nNext;
+	pth.clear();
+
+	int nbVisited = 0;
+
+	for (auto it = tree.begin(); it != tree.end(); it++) {
+		if (it->id == source) {
+			for(int i=0; i<N ; i++)
+			{
+				D[i] = isIdInList(it->nodes,i);
+				pth.push_back(source);
+				Visited[i] = false;
+			}
+		}
+	}
+
+	Visited[source] = true;
+	nbVisited = 1;
+
+	while(nbVisited < N)
+	{
+		for(int i = 0, nValue=0; i < N; i++)
+		{
+			if((nValue < D[i]) && (Visited[i]==false))
+			{
+				nValue = D[i];
+			}
+		}
+		//TODO:complete this shiet
+		/*Nearest = nValue;
+
+		nbVisited++;
+		for(auto it = tree.begin(); it!=tree.end(); it++)
+		{
+			if(it.)
+		}*/
+	}
+}
 
 
 
