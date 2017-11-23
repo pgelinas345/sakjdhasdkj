@@ -19,7 +19,7 @@ int main() {
 
 	int z;
 
-	std::vector<int> x = {0,1,2,3};
+	std::vector<int> x = {2,1,0};
 
 	CGraph * G = new(CGraph);
 
