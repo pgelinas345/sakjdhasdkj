@@ -118,8 +118,6 @@ bool algorithm::dijkstra_search(std::vector<CGraph::Graph> &tree, int source, in
 
 	pth.resize(N);
 
-
-
 	std::vector<bool> Visited;
 
 	int n2nValue = 0;
@@ -143,7 +141,7 @@ bool algorithm::dijkstra_search(std::vector<CGraph::Graph> &tree, int source, in
 
 		for(int i = 0; i < N; i++)
 		{
-			if((nValue >= pth[i]) && (Visited[i]==false) && (pth[i]>0))
+			if((nValue >= pth[i]) && (Visited[i]==false) && (pth[i]>=0))
 			{
 				nValue = pth[i];
 				nNearest = i;
@@ -160,9 +158,9 @@ bool algorithm::dijkstra_search(std::vector<CGraph::Graph> &tree, int source, in
 				{
 					n2nValue = nodeToNodeValue(tree,nNearest,itl->id);
 
-					if((pth[itl->id] > (pth[nNearest] + n2nValue)) &&
+					if((pth[itl->id] < (pth[nNearest] + n2nValue)) &&
 					   Visited[itl->id] == false && n2nValue > 0 &&
-					   pth[itl->id] > 0)
+					   pth[itl->id] >= 0)
 					{
 						pth[itl->id] = (pth[nNearest] + n2nValue);
 
