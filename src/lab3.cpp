@@ -11,7 +11,7 @@
 #include <stdio.h>
 #include <list>
 #include <chrono>
-
+#include "algorithm.h"
 #include "graph.h"
 using namespace std;
 
@@ -19,21 +19,29 @@ int main() {
 
 	int z;
 
-	std::vector<int> x = {2,1,0};
+	std::vector<int> x;;
 
 	CGraph * G = new(CGraph);
+	algorithm Al;
+
+
+	x.resize(G->N);
 
 	auto start_time = std::chrono::high_resolution_clock::now();
 
-	  for(int i = 0; i<G->N; i++)
-	  {
-	    printf("\nNode:%d voisin:%d ",G->graph[i].id,G->graph[i].nb_nodes);
+	for(int i = 0; i<G->N; i++)
+	{
+	  printf("\nNode:%d voisin:%d ",G->graph[i].id,G->graph[i].nb_nodes);
 
-	    for(auto it = G->graph[i].nodes.begin(); it!=G->graph[i].nodes.end();it++)
-	    {
-	      printf("\nid=%d value=%d", it->id, it->value);
-	    }
+	  for(auto it = G->graph[i].nodes.begin(); it!=G->graph[i].nodes.end();it++)
+	  {
+		  printf("\nid=%d value=%d", it->id, it->value);
+
 	  }
+	}
+
+	Al.dijkstra_search(G->graph,0,4,x);
+
 	G->displayPath(x);
 
 	z = G->countSolutionCost(x);

@@ -10,6 +10,7 @@
 #include <string.h>
 #include <string>
 
+#define test 1
 
 CGraph::CGraph(){
 	this->N=0;
@@ -18,7 +19,7 @@ CGraph::CGraph(){
 	int minL=0,maxL=0,minP=0,maxP=0;
 	std::string file_name;
 
-
+#ifndef test
 	cout << "\nChoose how to create graph: ";
 	cout << "\n1.Create from file.";
     cout << "\n2.Generate randomly.";
@@ -102,10 +103,17 @@ CGraph::CGraph(){
 
     	L = Generate(minL,maxL,minP,maxP);
     }
+#else
+	L = ReadFromFile("./src/test.txt");
+
+	if(L == NULL) printf("\nFile not found!");
+
+#endif
 
     CreateFromMatrice(L);
 
 }
+
 
 CGraph::~CGraph(void){
 
