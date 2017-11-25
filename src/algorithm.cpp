@@ -77,40 +77,13 @@ void algorithm::reset_visite(std::vector<CGraph::Graph> &tree){
         tree[i].PassedOn= false;
 }
 
-int algorithm::nodeToNodeValue(std::vector<CGraph::Graph> v, int id_from, int id_to){
-
-	int retVal = -1;
-
-	for (auto it = v.begin(); it != v.end(); it++) {
-		if (it->id == id_from)
-		{
-			isIdInList(it->nodes,id_to);
-		}
-	}
-
-	return retVal;
-}
 
 
-int algorithm::isIdInList(std::list<CGraph::Node> list, int id){
 
-	int retVal = -1;
 
-	for(auto it = list.begin(); it != list.end() && (retVal == -1) ; it++)
-	{
-		if(it->id == id)
-		{
-			retVal = it->value;
-		}
-	}
+bool algorithm::dijkstra_search(CGraph *tree , int source, int destination,std::vector<int> &pth){
 
-	return retVal;
-}
-
-bool algorithm::dijkstra_search(std::vector<CGraph::Graph> &tree, int source, int destination,std::vector<int> &pth){
-
-	int N = tree.size();
-	int Next = 0;
+	int N = tree->graph.size();
 	int nValue = 0;
 	int nNearest = 0;
 
@@ -118,13 +91,16 @@ bool algorithm::dijkstra_search(std::vector<CGraph::Graph> &tree, int source, in
 
 	pth.resize(N);
 
+	std::vector<CGraph::Graph> g;
+
+
 	std::vector<bool> Visited;
 
 	int n2nValue = 0;
 
 	Visited.resize(N);
 
-	for (auto it = tree.begin(); it != tree.end(); it++) {
+	for (auto it = tree->graph.begin(); it != tree->graph.end(); it++) {
 		if (it->id != source) {
 			pth[it->id] = -1;
 			Visited[it->id] = false;
@@ -141,7 +117,7 @@ bool algorithm::dijkstra_search(std::vector<CGraph::Graph> &tree, int source, in
 
 		for(int i = 0; i < N; i++)
 		{
-			if((nValue >= pth[i]) && (Visited[i]==false) && (pth[i]>=0))
+			if((nValue >= pth[i]) && (Visited[i]==false) && pth[i]>=0)
 			{
 				nValue = pth[i];
 				nNearest = i;
@@ -150,13 +126,13 @@ bool algorithm::dijkstra_search(std::vector<CGraph::Graph> &tree, int source, in
 
 		Visited[nNearest] = true;
 
-		for(auto it = tree.begin(); it!=tree.end(); it++)
+		for(auto it = tree->graph.begin(); it!=tree->graph.end(); it++)
 		{
 			if(it->id == nNearest)
 			{
 				for(auto itl=it->nodes.begin(); itl!=it->nodes.end(); itl++)
 				{
-					n2nValue = nodeToNodeValue(tree,nNearest,itl->id);
+					n2nValue = tree->nodeToNodeValue(tree->graph,nNearest,itl->id);
 
 					if((pth[itl->id] < (pth[nNearest] + n2nValue)) &&
 					   Visited[itl->id] == false && n2nValue > 0 &&

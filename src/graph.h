@@ -28,13 +28,6 @@ using namespace std;
 
 class CGraph
 {
-private:
-
-	int ** ReadFromFile(char * file_name);
-	int ** Generate(int minL, int maxL, int minP, int maxP);
-
-	void CreateFromMatrice(int ** L);
-
 public:
 
 	struct Node{
@@ -54,6 +47,8 @@ public:
 		bool PassedOn;
 		std::list<Node> nodes;
 	};
+
+
 	int N;
 
 	std::vector<Graph> graph;
@@ -68,7 +63,17 @@ public:
 	void displayViewedNodes(void);
 	void displayPath(std::vector<int> v);
 	int countSolutionCost(std::vector<int> v);
+	void addEdges(std::vector<Graph> &tree,int idSrc, int idDst, int Value);
+	int nodeToNodeValue(std::vector<Graph> v, int id_from, int id_to);
+	int isIdInList(std::list<CGraph::Node> list, int id);
 
+private:
+
+	int ** ReadFromFile(char * file_name);
+	int ** Generate(int minL, int maxL, int minP, int maxP);
+
+	bool isEdgeInList(std::list<Node> l, int id);
+	void CreateFromMatrice(int ** L);
 };
 
 #endif /* GRAPH_H_ */

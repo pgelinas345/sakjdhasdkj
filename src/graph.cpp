@@ -369,9 +369,79 @@ int CGraph::countSolutionCost(std::vector<int> v){
 
 }
 
+void CGraph::addEdges(std::vector<Graph> &tree,int idSrc, int idDst, int Value){
+
+	bool done = false;
+
+	for(auto it = tree.begin(); it!=tree.end() && done==false; it++)
+	{
+		if(it->id == idSrc)
+		{
+			for(auto itl = it->nodes.begin(); itl != it->nodes.end() && done==false; itl++)
+			{
+				auto Next = itl;
+				Next++;
+				if(itl->id < idDst && ((Next->id > idDst) || (Next==it->nodes.end())))
+				{
+					it->nodes.insert(Next,Node(idDst,Value));
+					it->nb_nodes++;
+					done = true;
+				}
+				else if(itl->id == idDst)
+				{
+					done=true;
+				}
+			}
+		}
+	}
 
 
 
+}
+
+bool CGraph::isEdgeInList(std::list<Node> l, int id){
+
+	bool retVal = false;
+
+	for(auto it = l.begin(); (it != l.end()) && retVal==false; it++)
+	{
+		if(it->id==id)
+		{
+			retVal = true;
+		}
+	}
+
+	return retVal;
+}
+
+int CGraph::nodeToNodeValue(std::vector<Graph> v, int id_from, int id_to){
+
+	int retVal = -1;
+
+	for (auto it = v.begin(); it != v.end(); it++) {
+		if (it->id == id_from)
+		{
+			retVal=isIdInList(it->nodes,id_to);
+		}
+	}
+
+	return retVal;
+}
+
+int CGraph::isIdInList(std::list<Node> list, int id){
+
+	int retVal = -1;
+
+	for(auto it = list.begin(); it != list.end() && (retVal == -1) ; it++)
+	{
+		if(it->id == id)
+		{
+			retVal = it->value;
+		}
+	}
+
+	return retVal;
+}
 
 
 
