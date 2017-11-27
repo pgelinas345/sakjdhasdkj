@@ -341,9 +341,6 @@ int CGraph::countSolutionCost(std::vector<int> v){
 	int StartNode = *(v.begin());
 	int EndNode = *((v.end())-1);
 
-	cout << "\nPath taken to get from " << StartNode << " to " << EndNode;
-
-	cout << "\n";
 	for(auto it = v.begin(); (it+1)!=v.end() ; it++)
 	{
 		for(auto itv = this->graph.begin(); itv!=this->graph.end();itv++)
@@ -443,7 +440,20 @@ int CGraph::isIdInList(std::list<Node> list, int id){
 	return retVal;
 }
 
+bool CGraph::isEdgeVisited(std::vector<Graph> v, int id){
+	int retVal = false;
 
+	for(auto it = v.begin(); it != v.end() ; it++)
+	{
+		if(it->id == id)
+		{
+			retVal = it->PassedOn;
+			break;
+		}
+	}
+
+	return retVal;
+}
 
 
 

@@ -12,8 +12,6 @@ using namespace std;
 class algorithm {
 
 private:
-
-
 	CGraph graph;
 public:
     bool deep_search(std::vector<CGraph::Graph> &tree, int source, int dest,std::vector<CGraph::Graph> &pth, int start_ind );

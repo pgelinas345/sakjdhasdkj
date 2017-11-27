@@ -72,6 +72,7 @@ private:
 	int ** ReadFromFile(char * file_name);
 	int ** Generate(int minL, int maxL, int minP, int maxP);
 
+	bool isEdgeVisited(std::vector<Graph> v, int id);
 	bool isEdgeInList(std::list<Node> l, int id);
 	void CreateFromMatrice(int ** L);
 };
