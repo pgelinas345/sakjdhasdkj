@@ -14,6 +14,10 @@
 
 CGraph::CGraph(){
 	this->N=0;
+	this->graph.resize(this->N);
+}
+
+bool CGraph::createNewGraph(void){
 	char user;
 	int ** L = NULL;
 	int minL=0,maxL=0,minP=0,maxP=0;
@@ -111,6 +115,8 @@ CGraph::CGraph(){
 #endif
 
     CreateFromMatrice(L);
+
+    return true;
 
 }
 
@@ -338,8 +344,6 @@ void CGraph::displayPath(std::vector<int> v){
 int CGraph::countSolutionCost(std::vector<int> v){
 
 	int retVal = 0;
-	int StartNode = *(v.begin());
-	int EndNode = *((v.end())-1);
 
 	for(auto it = v.begin(); (it+1)!=v.end() ; it++)
 	{

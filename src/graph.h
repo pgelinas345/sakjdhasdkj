@@ -52,11 +52,11 @@ public:
 	int N;
 
 	std::vector<Graph> graph;
-	int **AdjMatrix;
 
 	CGraph();
 	~CGraph();
 
+	bool createNewGraph(void);
 	int saveToFile(const char * file_name);
 	void displayNodes(void);
 	int countViewedNodes(void);
