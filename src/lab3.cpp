@@ -15,16 +15,14 @@
 #include "graph.h"
 using namespace std;
 
-
-
 int main() {
 
 	int z;
+
+	std::vector<int> x;
     int choice,start,stop,method;
     std::chrono::system_clock::time_point start_time,end_time;
     std::chrono::duration<double> time_count;
-
-	std::vector<int> x;;
 
 	CGraph * G = new(CGraph);
 	algorithm Al;

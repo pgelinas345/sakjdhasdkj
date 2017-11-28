@@ -413,12 +413,19 @@ bool CGraph::isEdgeInList(std::list<Node> l, int id){
 
 int CGraph::nodeToNodeValue(std::vector<Graph> v, int id_from, int id_to){
 
-	int retVal = -1;
+	int retVal = 0x7FFF;
 
-	for (auto it = v.begin(); it != v.end(); it++) {
-		if (it->id == id_from)
-		{
-			retVal=isIdInList(it->nodes,id_to);
+	if(id_from == id_to)
+	{
+		retVal=0;
+	}
+	else
+	{
+		for (auto it = v.begin(); it != v.end() && retVal == 0x7FFF; it++) {
+			if (it->id == id_from)
+			{
+				retVal=isIdInList(it->nodes,id_to);
+			}
 		}
 	}
 
@@ -427,9 +434,9 @@ int CGraph::nodeToNodeValue(std::vector<Graph> v, int id_from, int id_to){
 
 int CGraph::isIdInList(std::list<Node> list, int id){
 
-	int retVal = -1;
+	int retVal = 0x7FFF;
 
-	for(auto it = list.begin(); it != list.end() && (retVal == -1) ; it++)
+	for(auto it = list.begin(); it != list.end() && (retVal == 0x7FFF) ; it++)
 	{
 		if(it->id == id)
 		{

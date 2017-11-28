@@ -4,6 +4,8 @@
 
 #include "algorithm.h"
 
+#define ADDITION_INF(x,y) ((x+y) > 0x7FFF) ? 0x7FFF: (x+y)
+
 
 bool algorithm::deep_search(CGraph *tree, int source, int dest,std::vector<int> &pth, int start_ind  ){
     int i,j;
@@ -102,6 +104,8 @@ bool algorithm::dijkstra_search(CGraph *tree , int source, int destination,std::
 	int nNearest = 0;
 	int nNext = 0;
 
+	bool found = false;
+
 	pth.clear();
 
 	int n2nValue = 0;
@@ -119,7 +123,7 @@ bool algorithm::dijkstra_search(CGraph *tree , int source, int destination,std::
 	}
 
 
-	for(int nbVisited = 0; nbVisited < N; nbVisited++)
+	for(int nbVisited = 0; nbVisited < N && found==false; nbVisited++)
 	{
 		nValue = 0x7FFF;
 
@@ -134,6 +138,18 @@ bool algorithm::dijkstra_search(CGraph *tree , int source, int destination,std::
 
 		Visited[nNearest] = true;
 
+		if(nNearest == destination)
+		{
+			found = true;
+			pth.insert(pth.begin(),destination);
+			nNext = destination;
+			do
+			{
+				nNext = from[nNext];
+				pth.insert(pth.begin(),nNext);
+
+			}while(nNext != source);
+		}
 
 		for(auto it = tree->graph.begin(); it!=tree->graph.end() ; it++)
 		{
@@ -156,18 +172,66 @@ bool algorithm::dijkstra_search(CGraph *tree , int source, int destination,std::
 		}
 	}
 
-	pth.insert(pth.begin(),destination);
-	nNext = destination;
-	do
-	{
-		nNext = from[nNext];
-		pth.insert(pth.begin(),nNext);
 
-	}while(nNext != source);
 
 	return true;
 }
 
+
+bool algorithm::floyd_warshal_search(CGraph *tree, int source, int destination,std::vector<int> &pth){
+
+	int N = tree->N;
+
+	int ** D = new int*[N];
+	int ** path = new int*[N];
+	int n2nValue = 0;
+
+	for(int i = 0; i<N; i++)
+	{
+		D[i] = new int[N];
+		path[i] = new int[N];
+	}
+
+	for(int i = 0; i<N ; i++)
+	{
+		for(int j = 0; j<N; j++)
+		{
+			n2nValue = tree->nodeToNodeValue(tree->graph,i,j);
+			D[i][j] = n2nValue;
+			path[i][j] = -1;
+		}
+	}
+
+	for(int k = 0; k<N; k++)
+	{
+		for(int i = 0; i<N ; i++)
+		{
+			for(int j = 0; j<N; j++)
+			{
+				if(D[i][j] > ADDITION_INF(D[i][k],D[k][i]))
+				{
+					D[i][j] = ADDITION_INF(D[i][k],D[k][i]);
+					path[i][j] = k;
+				}
+
+			}
+		}
+	}
+
+	printf("\n");
+
+	for(int i = 0; i<N ; i++)
+	{
+		printf("\n");
+		for(int j = 0; j<N; j++)
+		{
+			printf("%d\t",D[i][j]);
+		}
+	}
+
+
+
+}
 
 
 
