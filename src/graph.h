@@ -60,6 +60,7 @@ public:
 	int saveToFile(const char * file_name);
 	void displayNodes(void);
 	int countViewedNodes(void);
+	void resetVisited(void);
 	void displayViewedNodes(void);
 	void displayPath(std::vector<int> v);
 	int countSolutionCost(std::vector<int> v);

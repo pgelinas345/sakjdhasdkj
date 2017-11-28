@@ -10,7 +10,7 @@
 #include <string.h>
 #include <string>
 
-#define test 1
+//#define test 1
 
 CGraph::CGraph(){
 	this->N=0;
@@ -455,6 +455,12 @@ bool CGraph::isEdgeVisited(std::vector<Graph> v, int id){
 	return retVal;
 }
 
+void CGraph::resetVisited() {
+    for(auto it=this->graph.begin();it!=this->graph.end();it++)
+    {
+        it->PassedOn= false;
+    }
+}
 
 
 
