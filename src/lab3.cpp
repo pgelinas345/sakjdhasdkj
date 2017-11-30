@@ -24,6 +24,8 @@ int main() {
     std::chrono::system_clock::time_point start_time,end_time;
     std::chrono::duration<double> time_count;
 
+
+
 	std::vector<int> x;;
 
 	CGraph * G = new(CGraph);
@@ -35,50 +37,51 @@ int main() {
         std::cout<<"Veuillez entrer le type de probleme a resoudre\n";
         std::cout<<"1. Labyrinthe/TL\n2. Carte routiere\n";
         std::cin>>choice;
+        G->createNewGraph();
         std::cout<<"Veuillez entrer le noeud de depart\n";
         std::cin>>start;
         std::cout<<"Veuillez entrer le noeud d'arriver\n";
         std::cin>>stop;
         std::cout<<"Veuillez entrer le type d'algorithm\n";
-        if(choice=='1'){
+        if(choice==1){
             std::cout<<"1. Recherche en profondeur\n2. Recherche en largeur\n";
             std::cin>>method;
             switch(method){
-                case '1':
+                case 1:
                     G->resetVisited();
                     x.resize(G->N);
-
+                    x.clear();
                     start_time = std::chrono::high_resolution_clock::now();
+                    if(Al.deep_search(G->graph,start,stop,x)){
+                        end_time = std::chrono::high_resolution_clock::now();
+                        std::cout<<"Path found";
+                        G->displayPath(x);
+                        std::cout<<"Number of node visited :"<<x.size();
+                        time_count = end_time - start_time;
+                        std::cout << "\nElapsed time: " << time_count.count() << "s\n";
+                    }
+                    else{
+                        std::cout<<"Path not found";
+                    }
 
-                    Al.deep_search(G,start,stop,x,0);
-
-                    G->displayViewedNodes();
-
-                    G->displayPath(x);
-
-                    end_time = std::chrono::high_resolution_clock::now();
-
-                    time_count = end_time - start_time;
-
-                    std::cout << "\nElapsed time: " << time_count.count() << "s\n";
 
                     break;
-                case '2':
+                case 2:
                     G->resetVisited();
                     x.resize(G->N);
-
+                    x.clear();
                     start_time = std::chrono::high_resolution_clock::now();
-
-                    Al.wide_search(G,start,stop,x);
-
-                    G->displayViewedNodes();
-
-                    G->displayPath(x);
-
+                    if(Al.wide_search(G,start,stop,x)){
+                        std::cout<<"Path found";
+                    }
+                    else{
+                        std::cout<<"Path not found\n";
+                    }
                     end_time = std::chrono::high_resolution_clock::now();
-
+                    G->displayViewedNodes();
+                    G->displayPath(x);
+                    std::cout<<"Number of node visited :"<<x.size();
                     time_count = end_time - start_time;
-
                     std::cout << "\nElapsed time: " << time_count.count() << "s\n";
                     break;
                 default:
@@ -89,11 +92,11 @@ int main() {
             std::cout<<"1. Recherche en profondeur\n2. Dijkstra\n3. Floyd-Warshall\n";
             std::cin>>method;
             switch(method){
-                case '1':
+                case 1:
                     break;
-                case '2':
+                case 2:
                     break;
-                case '3':
+                case 3:
                     break;
                 default:
                     break;

@@ -11,7 +11,7 @@
 #include <string>
 
 //#define test 1
-
+#define TEST
 CGraph::CGraph(){
 	this->N=0;
 	this->graph.resize(this->N);
@@ -40,10 +40,12 @@ bool CGraph::createNewGraph(void){
 			cout << "\n=>";
 			cin >> file_name;
 
-			L = ReadFromFile((char *)file_name.data());
-
-    		//L = ReadFromFile("./src/Londres.txt");
-
+#ifdef TEST
+            L = ReadFromFile("../src/jf.txt");
+#endif
+#ifndef TEST
+            L = ReadFromFile((char *)file_name.data());
+#endif
 			if(L == NULL) printf("\nFile not found!");
     	}
     }
@@ -307,38 +309,44 @@ int CGraph::countViewedNodes(void){
 }
 
 void CGraph::displayViewedNodes(void){
-
-	cout << "\nNodes passed on:";
+    int nb_char=0;
+	std::cout << "\nNodes passed on:\n";
 
 	for(auto it=this->graph.begin();it!=this->graph.end();it++)
 	{
 		if(it->PassedOn == true)
 		{
-			cout << "\n" << it->id;
+			std::cout << it->id<<"-";
+            nb_char+=2;
 		}
+        if(nb_char>=100){
+            std::cout<<'\n';
+            nb_char=0;
+        }
 	}
 }
 
 void CGraph::displayPath(std::vector<int> v){
 
-	int StartNode = *(v.begin());
-	int EndNode = *((v.end())-1);
+    int nb_char=0;
+    if(!v.empty()) {
+        cout << "\nPath taken to get from " << v.front() << " to " << v.back()<<'\n';
+        for (auto it:v) {
 
-	cout << "\nPath taken to get from " << StartNode << " to " << EndNode;
-
-	cout << "\n";
-	for(auto it = v.begin(); it!=v.end() ; it++)
-	{
-		if((it+1) == v.end())
-		{
-			cout << *it;
-		}
-		else
-		{
-			cout << *it << " -> ";
-		}
-	}
-
+            if(it==v.back()){
+                cout<<it;
+            }
+            else{
+                cout<<it<<"->";
+                nb_char+=4;
+            }
+            if (nb_char >= 100) {
+                std::cout << '\n';
+                nb_char = 0;
+            }
+        }
+        std::cout << '\n';
+    }
 }
 
 int CGraph::countSolutionCost(std::vector<int> v){

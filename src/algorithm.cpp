@@ -5,34 +5,28 @@
 #include "algorithm.h"
 
 
-bool algorithm::deep_search(CGraph *tree, int source, int dest,std::vector<int> &pth, int start_ind  ){
-    int i,j;
-    bool found;
-    std::list<CGraph::Node> neighbord;
-    std::vector<CGraph::Graph> graph=tree->graph;
-    
-    for(i=0;graph[i].id!=source && i<graph.size();i++);
-    if(graph[i].PassedOn){
+bool algorithm::deep_search(std::vector<CGraph::Graph> &tree, int source, int dest,std::vector<int> &pth){
+    int i=0,j=0;
+    bool found=false;
+    if(tree[source].PassedOn){
         return false;
     }
-    graph[i].PassedOn= false;
-    found= false;
-    neighbord=graph[i].nodes;
-    for(auto it=neighbord.begin();it!=neighbord.end(),found!= true;it++){
-        for(j=0;graph[j].id!=it->id && j<graph[i].nb_nodes;j++);
-        if(graph[j].id==dest){
+    tree[source].PassedOn= true;
+    pth.push_back(source);
+    for(auto it=tree[source].nodes.begin();it!=tree[source].nodes.end(),!found;it++){
+        if(it->id==dest){
             found=true;
-            pth[start_ind+1]=graph[j].id;
+            tree[it->id].PassedOn=true;
+            pth.push_back(it->id);
+        }
+        if(tree[it->id].PassedOn){
+            continue;
         }
         else{
-            found=algorithm::deep_search(tree,graph[j].id,dest,pth,(start_ind+1));
+            found=deep_search(tree,it->id,dest,pth);
         }
     }
-
-    if(found){
-        pth[start_ind]=graph[i].id;
-    }
-    graph[i].PassedOn=found;
+    return found;
 }
 /**
  *
@@ -45,43 +39,39 @@ bool algorithm::deep_search(CGraph *tree, int source, int dest,std::vector<int> 
  */
 
 bool algorithm::wide_search(CGraph *tree, int source, int dest,std::vector<int> &pth){
-    int i,j;
+    int i,current_objective=source;
     bool found=false;
-    std::vector<CGraph::Graph> working_queue;
-    std::vector<CGraph::Graph> graph=tree->graph;
-    CGraph::Graph current;
-    for (i = 0; graph[i].id != source && i < graph.size(); i++);
-    graph[i].PassedOn = true;
-    current=graph[i];
+    std::list<int> child;
+    child.clear();
+    pth.push_back(source);
+    tree->graph[current_objective].PassedOn=true;
+    do {
 
-    while(!working_queue.empty() && !found) {
-        if(!working_queue.empty()){
-            current=working_queue.back();
-            working_queue.pop_back();
-        }
-        for (i = 0; graph[i].id != current.id && i < graph.size(); i++);
-        graph[i].PassedOn = true;
-        for (auto it = graph[i].nodes.begin(); it != graph[i].nodes.end() && !found; it++) {
-            for (j = 0; graph[j].id != it->id && j < graph.size(); j++);
-            if (!graph[j].PassedOn) {
-                graph[j].PassedOn = true;
-                working_queue.push_back(graph[j]);
-            }
-            if(graph[j].id==dest){
-                found=true;
-            }
-        }
-    }
-    for(auto it=working_queue.begin();it<working_queue.end();it++){
-        pth.push_back(it->id);
-    }
+        if (!child.empty()) {
+            current_objective = child.front();
+            child.pop_front();
 
+        }
+        for (auto it = tree->graph[current_objective].nodes.begin();
+             it != tree->graph[current_objective].nodes.end() && !found; it++) {
+            if (it->id == dest) {
+                tree->graph[it->id].PassedOn = true;
+                pth.push_back(it->id);
+                found = true;
+            } else if (tree->graph[it->id].PassedOn) {
+                continue;
+            } else {
+                child.push_back(it->id);
+                tree->graph[it->id].PassedOn=true;
+                pth.push_back(it->id);
+            }
+        }
+    }while(!found && !child.empty());
+
+
+    return found;
 }
 
-void algorithm::reset_visite(std::vector<CGraph::Graph> &tree){
-    for(auto i=0;i<tree.size();i++)
-        tree[i].PassedOn= false;
-}
 
 
 

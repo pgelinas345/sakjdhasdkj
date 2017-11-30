@@ -14,7 +14,7 @@ class algorithm {
 private:
 	CGraph graph;
 public:
-    bool deep_search(CGraph *tree, int source, int dest,std::vector<int> &pth, int start_ind );
+    bool deep_search(std::vector<CGraph::Graph> &tree, int source, int dest,std::vector<int> &pth);
     void reset_visite(std::vector<CGraph::Graph> &tree);
     bool wide_search(CGraph *tree, int source, int dest,std::vector<int> &pth);
     bool dijkstra_search(CGraph *tree, int source, int destination,std::vector<int> &pth);
