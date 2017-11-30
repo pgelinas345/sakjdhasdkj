@@ -42,34 +42,58 @@ bool algorithm::deep_search(std::vector<CGraph::Graph> &tree, int source, int de
  */
 
 bool algorithm::wide_search(CGraph *tree, int source, int dest,std::vector<int> &pth){
-    int i,current_objective=source;
+    int i=0,current_objective=source, parent;
     bool found=false;
     std::list<int> child;
+    std::vector<int> x;;
+    x.resize(tree->N);
+    std::fill(x.begin(), x.end(), -1);
     child.clear();
-    pth.push_back(source);
     tree->graph[current_objective].PassedOn=true;
+    tree->graph[current_objective].Distance=0;
     do {
 
         if (!child.empty()) {
             current_objective = child.front();
             child.pop_front();
 
+
         }
         for (auto it = tree->graph[current_objective].nodes.begin();
-             it != tree->graph[current_objective].nodes.end() && !found; it++) {
+             it != tree->graph[current_objective].nodes.end(); it++) {
             if (it->id == dest) {
-                tree->graph[it->id].PassedOn = true;
-                pth.push_back(it->id);
-                found = true;
+                if(tree->graph[it->id].Distance<0){
+                    tree->graph[it->id].Distance=tree->graph[current_objective].Distance+1;
+                    pth.resize(tree->graph[it->id].Distance+1);//afin dajouter le noeud de depart
+                    cout<<"chemin plus court trouver"<<tree->graph[current_objective].Distance+1<<'\n';
+                    cout<<"Courant :"<<it->id<<" Parent:"<<current_objective<<'\n';
+                    x[dest]=current_objective;
+                    parent=dest;
+                    pth[tree->graph[it->id].Distance]=it->id;
+                    pth[0]=source;
+                    for(i=1;i<(tree->graph[it->id].Distance);i++){
+                        pth[tree->graph[it->id].Distance-i]=x[parent];
+                        parent=x[parent];
+                    }
+                }
+                else if(tree->graph[it->id].Distance>tree->graph[current_objective].Distance+1){
+                    cout<<"chemin plus court trouver"<<tree->graph[current_objective].Distance+1<<'\n';
+                }
+                found =true;
+
             } else if (tree->graph[it->id].PassedOn) {
                 continue;
             } else {
                 child.push_back(it->id);
                 tree->graph[it->id].PassedOn=true;
-                pth.push_back(it->id);
+                if(x[it->id]=-1){
+                    x[it->id]=current_objective;
+                    tree->graph[it->id].Distance=tree->graph[current_objective].Distance+1;
+                }
+
             }
         }
-    }while(!found && !child.empty());
+    }while(!child.empty());
 
 
     return found;

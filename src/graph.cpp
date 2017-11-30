@@ -321,7 +321,10 @@ void CGraph::displayViewedNodes(void){
 	{
 		if(it->PassedOn == true)
 		{
-			std::cout << it->id<<"-";
+			std::cout << it->id;
+            if((it+1)!=this->graph.end()){
+                cout<<'-';
+            }
             nb_char+=2;
 		}
         if(nb_char>=100){

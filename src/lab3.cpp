@@ -52,6 +52,7 @@ int main() {
             switch(method){
                 case 1:
                     G->resetVisited();
+                    G->resetDistance();
                     x.resize(G->N);
                     x.clear();
                     start_time = std::chrono::high_resolution_clock::now();
@@ -71,6 +72,7 @@ int main() {
                     break;
                 case 2:
                     G->resetVisited();
+                    G->resetDistance();
                     x.resize(G->N);
                     x.clear();
                     start_time = std::chrono::high_resolution_clock::now();
