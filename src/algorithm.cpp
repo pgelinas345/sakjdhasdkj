@@ -15,7 +15,7 @@ bool algorithm::deep_search(std::vector<CGraph::Graph> &tree, int source, int de
     }
     tree[source].PassedOn= true;
     pth.push_back(source);
-    for(auto it=tree[source].nodes.begin();it!=tree[source].nodes.end(),!found;it++){
+    for(auto it=tree[source].nodes.begin();it!=tree[source].nodes.end() && !found;it++){
         if(it->id==dest){
             found=true;
             tree[it->id].PassedOn=true;
@@ -26,6 +26,10 @@ bool algorithm::deep_search(std::vector<CGraph::Graph> &tree, int source, int de
         }
         else{
             found=deep_search(tree,it->id,dest,pth);
+        }
+        if(!found)
+        {
+        	pth.pop_back();
         }
     }
     return found;

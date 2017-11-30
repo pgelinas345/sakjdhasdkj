@@ -57,6 +57,7 @@ int main() {
                     if(Al.deep_search(G->graph,start,stop,x)){
                         end_time = std::chrono::high_resolution_clock::now();
                         std::cout<<"Path found";
+                        G->displayViewedNodes();
                         G->displayPath(x);
                         std::cout<<"Number of node visited :"<<x.size();
                         time_count = end_time - start_time;
