@@ -98,6 +98,23 @@ int main() {
             std::cin>>method;
             switch(method){
                 case 1:
+                    G->resetVisited();
+                    x.resize(G->N);
+                    x.clear();
+                    start_time = std::chrono::high_resolution_clock::now();
+                    if(Al.deep_search_weight(G->graph,start,stop,x)){
+                        std::cout<<"Path found";
+                    }
+                    else{
+                        std::cout<<"Path not found\n";
+                    }
+                    end_time = std::chrono::high_resolution_clock::now();
+                    G->displayViewedNodes();
+                    G->displayPath(x);
+                    cout<<"Solution cost : "<<G->countSolutionCost(x)<<'\n';
+                    std::cout<<"Number of node visited :"<<x.size();
+                    time_count = end_time - start_time;
+                    std::cout << "\nElapsed time: " << time_count.count() << "s\n";
                     break;
                 case 2:
                     G->resetVisited();

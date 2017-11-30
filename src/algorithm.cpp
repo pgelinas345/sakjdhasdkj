@@ -9,7 +9,6 @@
 #define INF_CHECK(x)	(x == (-1)) ? 0x7FFF : x
 
 bool algorithm::deep_search(std::vector<CGraph::Graph> &tree, int source, int dest,std::vector<int> &pth){
-    int i=0,j=0;
     bool found=false;
     if(tree[source].PassedOn){
         return false;
@@ -283,7 +282,38 @@ bool algorithm::floyd_warshal_search(CGraph *tree, int source, int destination,s
 
  }
 
+bool algorithm::deep_search_weight(std::vector<CGraph::Graph> &tree, int source, int dest,std::vector<int> &pth){
+    bool found=false;
+    int candidat=0,pass_weight=-1;
+    if(tree[source].PassedOn){
+        return false;
+    }
+    tree[source].PassedOn= true;
+    pth.push_back(source);
+    for(auto it=tree[source].nodes.begin();it!=tree[source].nodes.end()&&!found;it++){
+        if(it->id==dest){
+            found=true;
+            tree[it->id].PassedOn=true;
+            pth.push_back(it->id);
+        }
+        if(tree[it->id].PassedOn){
+            continue;
+        }
+        else if(pass_weight==-1){
+            candidat=it->id;
+            pass_weight=it->value;
+        }
+        else if(it->value<pass_weight){
+            pass_weight=it->value;
+            candidat=it->id;
+        }
+    }
+    if(!found){
+        found=deep_search_weight(tree,candidat,dest,pth);
+    }
 
+    return found;
+}
 
 
 
