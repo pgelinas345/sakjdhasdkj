@@ -45,6 +45,7 @@ public:
 		int id;
 		int nb_nodes;
 		bool PassedOn;
+        int Distance;
 		std::list<Node> nodes;
 	};
 
@@ -61,6 +62,7 @@ public:
 	void displayNodes(void);
 	int countViewedNodes(void);
 	void resetVisited(void);
+    void resetDistance(void);
 	void displayViewedNodes(void);
 	void displayPath(std::vector<int> v);
 	int countSolutionCost(std::vector<int> v);

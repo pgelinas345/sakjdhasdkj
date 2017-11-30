@@ -98,8 +98,42 @@ int main() {
                 case 1:
                     break;
                 case 2:
+                    G->resetVisited();
+                    x.resize(G->N);
+                    x.clear();
+                    start_time = std::chrono::high_resolution_clock::now();
+                    if(Al.dijkstra_search(G,start,stop,x)){
+                        std::cout<<"Path found";
+                    }
+                    else{
+                        std::cout<<"Path not found\n";
+                    }
+                    end_time = std::chrono::high_resolution_clock::now();
+                    G->displayViewedNodes();
+                    G->displayPath(x);
+                    cout<<"Solution cost : "<<G->countSolutionCost(x)<<'\n';
+                    std::cout<<"Number of node visited :"<<x.size();
+                    time_count = end_time - start_time;
+                    std::cout << "\nElapsed time: " << time_count.count() << "s\n";
                     break;
                 case 3:
+                    G->resetVisited();
+                    x.resize(G->N);
+                    x.clear();
+                    start_time = std::chrono::high_resolution_clock::now();
+                    if(Al.floyd_warshal_search(G,start,stop,x)){
+                        std::cout<<"Path found";
+                    }
+                    else{
+                        std::cout<<"Path not found\n";
+                    }
+                    end_time = std::chrono::high_resolution_clock::now();
+                    G->displayViewedNodes();
+                    G->displayPath(x);
+                    cout<<"Solution cost : "<<G->countSolutionCost(x)<<'\n';
+                    std::cout<<"Number of node visited :"<<x.size();
+                    time_count = end_time - start_time;
+                    std::cout << "\nElapsed time: " << time_count.count() << "s\n";
                     break;
                 default:
                     break;

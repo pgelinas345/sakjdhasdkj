@@ -10,8 +10,8 @@
 #include <string.h>
 #include <string>
 
-//#define test
-
+#define test
+#define JF
 CGraph::CGraph(){
 	this->N=0;
 	this->graph.resize(this->N);
@@ -106,11 +106,18 @@ bool CGraph::createNewGraph(void){
 
     	L = Generate(minL,maxL,minP,maxP);
     }
-#else
-	L = ReadFromFile("./src/test.txt");
+#endif
+#ifdef JF
+	L = ReadFromFile("../src/jf.txt");
 
 	if(L == NULL) printf("\nFile not found!");
+#endif
+#ifndef JF
+#ifdef test
+    L = ReadFromFile("./src/test.txt");
 
+	if(L == NULL) printf("\nFile not found!");
+#endif
 #endif
 
     CreateFromMatrice(L);
@@ -200,6 +207,7 @@ void CGraph::CreateFromMatrice(int ** L){
 		this->graph[i].id = i;
 		this->graph[i].nb_nodes = 0;
 		this->graph[i].PassedOn = false;
+        this->graph[i].Distance = -1;
 		for(int j=0; j<this->N; j++)
 		{
 			if(L[i][j] > 0)
@@ -476,6 +484,13 @@ void CGraph::resetVisited() {
     for(auto it=this->graph.begin();it!=this->graph.end();it++)
     {
         it->PassedOn= false;
+    }
+}
+
+void CGraph::resetDistance() {
+    for(auto it=this->graph.begin();it!=this->graph.end();it++)
+    {
+        it->Distance= -1;
     }
 }
 
