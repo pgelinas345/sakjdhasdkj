@@ -10,8 +10,8 @@
 #include <string.h>
 #include <string>
 
-//#define test 1
-#define TEST
+//#define test
+
 CGraph::CGraph(){
 	this->N=0;
 	this->graph.resize(this->N);
@@ -40,12 +40,9 @@ bool CGraph::createNewGraph(void){
 			cout << "\n=>";
 			cin >> file_name;
 
-#ifdef TEST
-            L = ReadFromFile("../src/jf.txt");
-#endif
-#ifndef TEST
+
             L = ReadFromFile((char *)file_name.data());
-#endif
+
 			if(L == NULL) printf("\nFile not found!");
     	}
     }
@@ -427,11 +424,19 @@ int CGraph::nodeToNodeValue(std::vector<Graph> v, int id_from, int id_to){
 
 	int retVal = -1;
 
-	for (auto it = v.begin(); it != v.end(); it++) {
-		if (it->id == id_from)
-		{
-			retVal=isIdInList(it->nodes,id_to);
+	if(id_from == id_to)
+	{
+		retVal=0;
+	}
+	else
+	{
+		for (auto it = v.begin(); it != v.end(); it++) {
+			if (it->id == id_from)
+			{
+				retVal=isIdInList(it->nodes,id_to);
+			}
 		}
+
 	}
 
 	return retVal;

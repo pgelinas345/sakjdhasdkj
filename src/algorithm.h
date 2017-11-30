@@ -18,6 +18,7 @@ public:
     void reset_visite(std::vector<CGraph::Graph> &tree);
     bool wide_search(CGraph *tree, int source, int dest,std::vector<int> &pth);
     bool dijkstra_search(CGraph *tree, int source, int destination,std::vector<int> &pth);
+    bool floyd_warshal_search(CGraph *tree, int source, int destination,std::vector<int> &pth);
 };
 
 
