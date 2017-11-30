@@ -211,6 +211,7 @@ bool algorithm::floyd_warshal_search(CGraph *tree, int source, int destination,s
 
 	for(int i = 0; i<N ; i++)
 	{
+		tree->graph[i].PassedOn = true;
 		for(int j = 0; j<N; j++)
 		{
 			n2nValue = SAME_NODE_CHECK(i,j,tree->nodeToNodeValue(tree->graph,i,j));
@@ -221,14 +222,6 @@ bool algorithm::floyd_warshal_search(CGraph *tree, int source, int destination,s
 		}
 	}
 
-	for(int i = 0; i<N ; i++)
-	{
-		printf("\n");
-		for(int j = 0; j<N; j++)
-		{
-			printf("%d\t",D[i][j]);
-		}
-	}
 
 	for(int k = 0; k<N; k++)
 	{
@@ -248,27 +241,6 @@ bool algorithm::floyd_warshal_search(CGraph *tree, int source, int destination,s
 		}
 	}
 
-	printf("\n");
-
-	for(int i = 0; i<N ; i++)
-	{
-		printf("\n");
-		for(int j = 0; j<N; j++)
-		{
-			printf("%d\t",D[i][j]);
-		}
-	}
-
-	printf("\n");
-
-	for(int i = 0; i<N ; i++)
-	{
-		printf("\n");
-		for(int j = 0; j<N; j++)
-		{
-			printf("%d\t",path[i][j]);
-		}
-	}
 
 	pth.clear();
 	pth.push_back(u);

@@ -30,8 +30,6 @@ int main() {
 
 	CGraph * G = new(CGraph);
 
-	G->createNewGraph();
-
 	algorithm Al;
 
 	std::cout << "\033[2J\033[1;1H";

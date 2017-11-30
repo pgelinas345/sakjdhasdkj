@@ -10,8 +10,8 @@
 #include <string.h>
 #include <string>
 
-#define test
-#define JF
+//#define test
+//#define JF
 CGraph::CGraph(){
 	this->N=0;
 	this->graph.resize(this->N);
@@ -108,7 +108,7 @@ bool CGraph::createNewGraph(void){
     }
 #endif
 #ifdef JF
-	L = ReadFromFile("../src/jf.txt");
+	L = ReadFromFile("./src/jf.txt");
 
 	if(L == NULL) printf("\nFile not found!");
 #endif
