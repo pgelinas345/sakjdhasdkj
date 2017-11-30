@@ -27,6 +27,9 @@ int main() {
 	std::vector<int> x;;
 
 	CGraph * G = new(CGraph);
+
+	G->createNewGraph();
+
 	algorithm Al;
 
 	std::cout << "\033[2J\033[1;1H";
@@ -107,9 +110,9 @@ int main() {
     }
 //    x.resize(G->N);
 //
-//    auto start_time = std::chrono::high_resolution_clock::now();
+//    start_time = std::chrono::high_resolution_clock::now();
 //
-//    Al.dijkstra_search(G,0,4,x);
+//    Al.floyd_warshal_search(G,0,4,x);
 //
 //    G->displayViewedNodes();
 //
@@ -119,9 +122,9 @@ int main() {
 //
 //    cout << "\nTotal cost = " << z;
 //
-//    auto end_time = std::chrono::high_resolution_clock::now();
+//    end_time = std::chrono::high_resolution_clock::now();
 //
-//    std::chrono::duration<double> time_count = end_time - start_time;
+//    time_count = end_time - start_time;
 //
 //    std::cout << "\nElapsed time: " << time_count.count() << "s\n";
 

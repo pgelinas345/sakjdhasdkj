@@ -10,7 +10,7 @@
 #include <string.h>
 #include <string>
 
-//#define test 1
+#define test 1
 
 CGraph::CGraph(){
 	this->N=0;
@@ -419,11 +419,19 @@ int CGraph::nodeToNodeValue(std::vector<Graph> v, int id_from, int id_to){
 
 	int retVal = -1;
 
-	for (auto it = v.begin(); it != v.end(); it++) {
-		if (it->id == id_from)
-		{
-			retVal=isIdInList(it->nodes,id_to);
+	if(id_from == id_to)
+	{
+		retVal=0;
+	}
+	else
+	{
+		for (auto it = v.begin(); it != v.end(); it++) {
+			if (it->id == id_from)
+			{
+				retVal=isIdInList(it->nodes,id_to);
+			}
 		}
+
 	}
 
 	return retVal;
